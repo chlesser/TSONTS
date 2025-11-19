@@ -22,6 +22,12 @@
             "displayName": "Visual Studio Build Tools 2022 Release - amd64 - Debug",
             "configurePreset": "Visual Studio Build Tools 2022 Release - amd64",
             "configuration": "Debug"
+        },
+        {
+            "name": "Visual Studio Build Tools 2022 Release - amd64-release",
+            "displayName": "Visual Studio Build Tools 2022 Release - amd64 - Release",
+            "configurePreset": "Visual Studio Build Tools 2022 Release - amd64",
+            "configuration": "Release"
         }
     ]
 }
