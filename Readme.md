@@ -22,3 +22,6 @@ This program does NOT support:
 - Spellcasters. Martials need something, someone already made a google doc of the spells... (I may revisit this later to add this).
 - Advanced Homebrewing support (Unfortunately, I cannot plan for each 6 rolled to double damage or anything).
 - Minor flat damage increases. (I'll probably revisit this, but things like nat 20 extra damage on the dragon's wrath weapons and flat damage even if you miss aren't currently implemented).
+
+## How to download
+Just download the zip file or clone the repo!
