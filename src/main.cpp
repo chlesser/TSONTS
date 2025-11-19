@@ -65,6 +65,7 @@ string conclusions[23];
 
 void runSimulation()
 {
+    float tito[4] = { 1.0f, 0.5f, 0.0f, 2.0f };
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distrib(1, 20); //this is our d20 roll
@@ -257,6 +258,9 @@ void createOptionsView()
 
                 if ((int)(Attacks.at(i).DamageDices.size()) < Attacks.at(i).diceTypes)
                     Attacks.at(i).DamageDices.resize(Attacks.at(i).diceTypes);
+                
+                if ((int)(Attacks.at(i).damageResistance.size()) < Attacks.at(i).diceTypes)
+                    Attacks.at(i).damageResistance.resize(Attacks.at(i).diceTypes);
 
                 for(int j = 0; j < Attacks.at(i).diceTypes; j++) {
                     ImGui::PushID(j);
@@ -270,6 +274,30 @@ void createOptionsView()
 
                     ImGui::Text("Dice Faces");
                     ImGui::InputInt("##subcount", &Attacks.at(i).DamageDices[j].second);
+                    
+                    const char* items[] = { "Neutral", "Resistance", "Immunity", "Vulnerability"};
+                    static int item_selected_idx = 0; // Here we store our selection data as an index.
+
+                    static ImGuiComboFlags flags = 0;
+                    const char* combo_preview_value = items[item_selected_idx];
+                    if (ImGui::BeginCombo("Resistance", combo_preview_value, flags))
+                    {
+                        for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+                        {
+                            const bool is_selected = (item_selected_idx == n);
+                            if (ImGui::Selectable(items[n], is_selected)) {
+                                item_selected_idx = n;
+                                Attacks.at(i).damageResistance[j] = resistance(n);
+                                cout << Attacks.at(i).damageResistance[j] << endl;
+                            }
+                                
+
+                            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                            if (is_selected)
+                                ImGui::SetItemDefaultFocus();
+                        }
+                        ImGui::EndCombo();
+                    }
 
                     ImGui::PopID();
                 }
