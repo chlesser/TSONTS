@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
-project(Test VERSION 0.1.0 LANGUAGES C CXX)
+project(TSONTS VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Executable + glad implementation
-add_executable(Test
+add_executable(TSONTS
     src/main.cpp
     imgui/imgui_demo.cpp
     imgui/imgui_draw.cpp
@@ -18,18 +18,18 @@ add_executable(Test
 )
 
 # Include folder for glad/GLFW headers
-target_include_directories(Test PRIVATE
+target_include_directories(TSONTS PRIVATE
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/imgui
 )
 
 # Link folder for glfw3.lib
-target_link_directories(Test PRIVATE
+target_link_directories(TSONTS PRIVATE
     ${CMAKE_SOURCE_DIR}/external/glfw/lib
 )
 
 # Link actual GLFW + system OpenGL
-target_link_libraries(Test PRIVATE
+target_link_libraries(TSONTS PRIVATE
     glfw3          # the glfw3.lib file
     opengl32       # Windows OpenGL loader
 )

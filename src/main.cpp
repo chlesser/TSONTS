@@ -201,7 +201,6 @@ void runSimulation()
 
 void createOptionsView()
 {
-    ImGui::ShowDemoWindow();
     ImGui::Begin("Settings");
     ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
 

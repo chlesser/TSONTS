@@ -174,9 +174,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\hydri\OneDrive\Documents\GitHub\TSONTS\out\build\Visual Studio Build Tools 2022 Release - amd64\Test.vcxproj">
-      <Project>{20EEE319-A244-376F-B258-783FF8399F18}</Project>
-      <Name>Test</Name>
+    <ProjectReference Include="C:\Users\hydri\OneDrive\Documents\GitHub\TSONTS\out\build\Visual Studio Build Tools 2022 Release - amd64\TSONTS.vcxproj">
+      <Project>{BCF3945C-C405-3756-95D8-DA2FADF9BE0E}</Project>
+      <Name>TSONTS</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
