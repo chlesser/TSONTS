@@ -51,7 +51,7 @@ int bonusTypes;
 vector<int> bonusCount;
 vector<int> bonusSize;
 
-int trials = 100;
+int trials = 10000;
 
 bool updateTable;
 /*
@@ -208,8 +208,8 @@ void createOptionsView()
     {
         if (ImGui::BeginTabItem("General"))
         {
-            ImGui::SeparatorText("General");
-            ImGui::Text("This will include help later");
+            ImGui::SeparatorText("Martials only club");
+            ImGui::Text("Welcome to the D&D Gamble Optimizer!\nIf you are worried whether you should use Great Weapon Master/Sharpshooter\nagainst a particular Armor Class, this has you covered!\nYou can also use it as a general damage calculator\nagainst an AC by removing gamble penalties and buffs.");
 
             ImGui::SeparatorText("Gamble Stats");
             ImGui::InputInt("To Hit Penality", &hitDrop);
@@ -226,9 +226,9 @@ void createOptionsView()
         }
         if (ImGui::BeginTabItem("Attacks"))
         {
-            ImGui::SeparatorText("Attacks");
+            ImGui::SeparatorText("Bump those numbers up");
             ImGui::Text("Declare attacks here, and how many times per turn they are used.");
-            ImGui::SeparatorText("Weapon Dice");
+            ImGui::SeparatorText("Attacks");
             ImGui::InputInt("How Many Types of Attacks", &attackCount);
             if(attackCount < 0)
                 attackCount = 0;
@@ -280,7 +280,7 @@ void createOptionsView()
         }
         if (ImGui::BeginTabItem("1/Turn"))
         {
-            ImGui::SeparatorText("1/turn Damage.");
+            ImGui::SeparatorText("One shot, one kill");
             ImGui::Text("Once off damage added to only one attack, like sneak attack or hunters mark");
             ImGui::SeparatorText("Weapon Dice");
             ImGui::InputInt("How Many Types of Dice", &bonusTypes);
@@ -314,6 +314,8 @@ void createOptionsView()
         }
         if (ImGui::BeginTabItem("Build Table"))
         {
+            ImGui::SeparatorText("Put it together");
+            ImGui::Text("More trials will give more accurate information!");
             ImGui::InputInt("Trials per Case", &trials);
             if(ImGui::Button("Build!"))
                 runSimulation();
