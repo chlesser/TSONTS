@@ -35,7 +35,7 @@ struct attack {
     }
 };
 
-int hitDrop = -5;
+int hitDrop = 5;
 int damageBump = 10;
 
 bool crit19;
@@ -86,7 +86,7 @@ void runSimulation()
                     for(int attack = 0; attack < Attacks.at(atkCtr).numberPerTurn; attack++) {
                         int dieRoll = distrib(gen);
                         //here's where things get messy based on column...
-                        if(column >= 2) { //disadvantage
+                        if(column >= 4) { //disadvantage
                             int randomNumber2 = distrib(gen);
                             if(randomNumber2 < dieRoll)
                                 dieRoll = randomNumber2;
@@ -97,7 +97,7 @@ void runSimulation()
                                 dieRoll = randomNumber2;
                         }
                         //if we're a halfling
-                        if(reroll1)
+                        if(reroll1 && dieRoll == 1)
                             dieRoll = distrib(gen);
                         
                         int attackDamage = 0;
@@ -122,7 +122,6 @@ void runSimulation()
                             //and if we're gambling
                             if(column % 2 == 1)
                                 attackDamage += damageBump;
-                            brutalCriticalLeft = false;
                             if(!hit)
                                 critFirst = true;
                             hit = true;
@@ -130,7 +129,7 @@ void runSimulation()
                             //we got our die roll. add our hit bonus
                             dieRoll += Attacks.at(atkCtr).hitBonus;
                             if(column % 2 == 1)
-                                attackDamage -= hitDrop;
+                                dieRoll -= hitDrop;
                             
                             if(dieRoll >= ac) {
                                 hit = true;
@@ -167,9 +166,9 @@ void runSimulation()
                 }
             }
             //we're finally out of one round of fighting...
-            float decimalAgg = (float)agg;
-            float avg = agg / trials;
-            avg = trunc(avg * 100.0f) / 100.0f;
+            float avg = static_cast<float>(agg) / static_cast<float>(trials);
+            avg = truncf(avg * 100.0f) / 100.0f;
+            cout << avg << endl;
             table[ac - 8][column] = avg;
         }
         //my final line of code, I swear!!!!
@@ -183,18 +182,18 @@ void runSimulation()
         //  GWM is worse always             (high ac)      0 > 1 && 2 > 3
         //  GWM is better w/ advantage      (middle ac)    0 > 1 && 3 > 2
         //  GWM got really confused                        1 > 0 && 2 > 3
-        float StdAtk = table[ac][0];
-        float GmbAtk = table[ac][1];
-        float StdAtkAdv = table[ac][2];
-        float GmbAtkAdv = table[ac][3];
+        float StdAtk = table[ac - 8][0];
+        float GmbAtk = table[ac - 8][1];
+        float StdAtkAdv = table[ac - 8][2];
+        float GmbAtkAdv = table[ac - 8][3];
         if(GmbAtk >= StdAtk && GmbAtkAdv >=StdAtkAdv) {
-            conclusions[ac] = "Gamble";
+            conclusions[ac - 8] = "Gamble";
         } else if (StdAtk >= GmbAtk && StdAtkAdv >=GmbAtkAdv) {
-            conclusions[ac] = "Standard";
+            conclusions[ac - 8] = "Standard";
         } else if (StdAtk >= GmbAtk && GmbAtkAdv >= StdAtkAdv) {
-            conclusions[ac] = "With Advantage";
+            conclusions[ac - 8] = "With Advantage";
         } else {
-            conclusions[ac] = "WTF?";
+            conclusions[ac - 8] = "WTF?";
         }
     }
 }
@@ -356,7 +355,7 @@ void createTableView()
                         string printedString = to_string(row + 8);
                         ImGui::Text(printedString.c_str());
                     } else {
-                        ImGui::Text("%d", table[row][column - 1]);
+                        ImGui::Text("%.2f", table[row][column - 1]);
                     }
                 }
                 ImGui::TableSetColumnIndex(7);
