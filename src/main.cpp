@@ -70,11 +70,8 @@ void runSimulation()
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distrib(1, 20); //this is our d20 roll
 
-    int critrange = 20;
-    if(crit19)
-        critrange--;
-    if(crit18)
-        critrange--;
+    int critrange = 20 - (int)crit19 - (int)crit18;
+    cout << critrange << endl;
     for(int ac = 8; ac <= 30; ac++) {
         for(int column = 0; column < 6; column++) {
             int agg = 0;
@@ -169,7 +166,6 @@ void runSimulation()
             //we're finally out of one round of fighting...
             float avg = static_cast<float>(agg) / static_cast<float>(trials);
             avg = truncf(avg * 100.0f) / 100.0f;
-            cout << avg << endl;
             table[ac - 8][column] = avg;
         }
         //my final line of code, I swear!!!!
@@ -287,7 +283,6 @@ void createOptionsView()
                             if (ImGui::Selectable(items[n], is_selected)) {
                                 item_selected_idx = n;
                                 Attacks.at(i).damageResistance[j] = resistance(n);
-                                cout << Attacks.at(i).damageResistance[j] << endl;
                             }
                                 
 
