@@ -21,6 +21,9 @@ struct attack {
     vector<pair<int, int>>  DamageDices; //first number, then faces
     vector<resistance>      damageResistance;
     int                     diceTypes;
+    vector<bool>            piercerApplicable;
+    vector<bool>            gwfApplicable;
+    vector<bool>            isWeaponAttack;
     vector<int>             damageBonus;
     int                     hitBonus;
     int                     numberPerTurn;
@@ -44,6 +47,12 @@ bool critALL;
 
 bool reroll1;
 int brutalCriticals;
+bool savageAttacks;
+bool greatWeaponFighting;
+bool piercer;
+bool savageAttacker;
+//This is for logic calculation
+bool savageAttackUsed;
 
 vector<attack> Attacks;
 int attackCount;
@@ -82,20 +91,69 @@ int resistanceMod(int input, resistance res) {
             return input;
     }
 }
-int damageRoll(mt19937 &rd, int dieFaces, int diceCount, resistance res, int damageBonus, bool isCrit = false, bool gamblingAttack = false, bool includeExtraCritical = false)
+int damageRoll(mt19937 &rd, int dieFaces, int diceCount, resistance res, int damageBonus, bool isCrit, bool gamblingAttack, bool &brutalCritEnabled, bool isWeaponAttack, bool &piercerEnabled, bool GWFenabled, bool &savageAttackerEnabled)
 {
     int sum = 0;
 
     //hit loop
     for(int i = 0; i < diceCount; i++) {
+        int roll = 0;
         std::uniform_int_distribution<> tempDistr(1, dieFaces);
-        sum += tempDistr(rd);
+        roll = tempDistr(rd);
+        if(isWeaponAttack) {
+            //we start to handle the rerolls
+            if(GWFenabled) { //Great weapon fighting rerolls 1s and 2s
+                if(roll == 1 || roll == 2)
+                    roll = tempDistr(rd);
+            }
+            if(piercerEnabled) { //once per turn!
+                if(roll < (dieFaces / 2)) {
+                    roll = tempDistr(rd);
+                    piercerEnabled = false;
+                }
+            }
+            if(savageAttackerEnabled) { //once per turn!
+                if(roll < (dieFaces / 2)) {
+                    roll = tempDistr(rd);
+                    savageAttackerEnabled = false;
+                }
+            }
+        }
+        sum += roll;
     }
     if(isCrit) { //crit loop
-        int totalDice = includeExtraCritical ? diceCount + brutalCriticals : diceCount;
+        int totalDice = (isWeaponAttack && brutalCritEnabled) ? diceCount + brutalCriticals : diceCount;
+        //clear brutal critical
+        brutalCritEnabled = false;
+        if(isWeaponAttack && savageAttacks)
+            totalDice++;
+        if(isWeaponAttack && piercer)
+            totalDice++;
+
         for(int i = 0; i < totalDice; i++) {
+            int roll = 0;
             std::uniform_int_distribution<> tempDistr(1, dieFaces);
-            sum += tempDistr(rd);
+            roll = tempDistr(rd);
+            if(isWeaponAttack) {
+                //we start to handle the rerolls
+                if(GWFenabled) { //Great weapon fighting rerolls 1s and 2s
+                    if(roll == 1 || roll == 2)
+                        roll = tempDistr(rd);
+                }
+                if(piercerEnabled) { //once per turn!
+                    if(roll < (dieFaces / 3)) {
+                        roll = tempDistr(rd);
+                        piercerEnabled = false;
+                    }
+                }
+                if(savageAttackerEnabled) { //once per turn!
+                    if(roll < (dieFaces / 3)) {
+                        roll = tempDistr(rd);
+                        savageAttackerEnabled = false;
+                    }
+                }
+            }
+            sum += roll;
         }
     }
     sum += damageBonus;
@@ -119,6 +177,8 @@ void runSimulation()
             int agg = 0;
             for(int i = 0; i < trials; i++) {
                 bool brutalCriticalLeft = brutalCriticals > 0;
+                bool piercerUse = piercer;
+                bool savageAttackerUse = savageAttacker;
                 bool hit = false; //we store these for our automatic attacks
                 bool critFirst = false; 
                 //let's get hits
@@ -157,8 +217,10 @@ void runSimulation()
                                 dieRoll -= hitDrop;
                         }
                         if(dieRoll >= critrange) {
+                            
                             //UPDATE THIS WITH THE CRIT CODE
                             for(int dmgDiceIndex = 0; dmgDiceIndex < currentAttack.diceTypes; dmgDiceIndex++) {
+                                bool ableToPierce = piercerUse && currentAttack.piercerApplicable.at(dmgDiceIndex);
                                 attackDamage += damageRoll( gen,
                                                             currentAttack.DamageDices.at(dmgDiceIndex).second,
                                                             currentAttack.DamageDices.at(dmgDiceIndex).first,
@@ -166,8 +228,13 @@ void runSimulation()
                                                             currentAttack.damageBonus.at(dmgDiceIndex),
                                                             true,
                                                             (column % 2 == 1 && dmgDiceIndex == 0),
-                                                            brutalCriticalLeft);
-                                brutalCriticalLeft = false;
+                                                            brutalCriticalLeft,
+                                                            currentAttack.isWeaponAttack.at(dmgDiceIndex),
+                                                            ableToPierce, //this is piercer
+                                                            currentAttack.gwfApplicable.at(dmgDiceIndex),
+                                                            savageAttackerUse);
+                                if(!ableToPierce && piercerUse)
+                                    piercerUse = false;
                             }
                             if(!hit)
                                 critFirst = true;
@@ -181,14 +248,21 @@ void runSimulation()
                             if(dieRoll >= ac) {
                                 hit = true;
                                 for(int dmgDiceIndex = 0; dmgDiceIndex < currentAttack.diceTypes; dmgDiceIndex++) {
+                                    bool ableToPierce = piercerUse && currentAttack.piercerApplicable.at(dmgDiceIndex);
                                     attackDamage += damageRoll( gen,
-                                                            currentAttack.DamageDices.at(dmgDiceIndex).second,
-                                                            currentAttack.DamageDices.at(dmgDiceIndex).first,
-                                                            currentAttack.damageResistance.at(dmgDiceIndex),
-                                                            currentAttack.damageBonus.at(dmgDiceIndex),
-                                                            false,
-                                                            (column % 2 == 1 && dmgDiceIndex == 0),
-                                                            brutalCriticalLeft);
+                                                                currentAttack.DamageDices.at(dmgDiceIndex).second,
+                                                                currentAttack.DamageDices.at(dmgDiceIndex).first,
+                                                                currentAttack.damageResistance.at(dmgDiceIndex),
+                                                                currentAttack.damageBonus.at(dmgDiceIndex),
+                                                                false,
+                                                                (column % 2 == 1 && dmgDiceIndex == 0),
+                                                                brutalCriticalLeft,
+                                                                currentAttack.isWeaponAttack.at(dmgDiceIndex),
+                                                                ableToPierce, //this is piercer
+                                                                currentAttack.gwfApplicable.at(dmgDiceIndex),
+                                                                savageAttackerUse);
+                                    if(!ableToPierce && piercerUse)
+                                        piercerUse = false;
                                 }
                             }
                         }
@@ -272,15 +346,22 @@ void createOptionsView()
             ImGui::Checkbox("Crit on 18", &crit18);
             ImGui::Checkbox("Crit on all hits", &critALL);
 
-            ImGui::SeparatorText("Abilities");
-            ImGui::Checkbox("Reroll 1s", &reroll1);
-            ImGui::InputInt("Brutal Critical Die", &brutalCriticals);
+            ImGui::SeparatorText("Racial Abilities");
+            ImGui::Checkbox("Halfling Brave", &reroll1);
+            ImGui::Checkbox("Half Orc Savage Attacks", &savageAttacks);
+
+            ImGui::SeparatorText("Class/Feat Abilities");
+            ImGui::InputInt("BrutalCritical", &brutalCriticals);
+            ImGui::Checkbox("Great Weapon Fighting", &greatWeaponFighting);
+            ImGui::Checkbox("Savage Attacker", &savageAttacker);
+            ImGui::Checkbox("Piercer", &piercer);
+
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Attacks"))
         {
             ImGui::SeparatorText("Bump those numbers up");
-            ImGui::Text("Declare attacks here, and how many times per turn they are used.");
+            ImGui::Text("Declare attacks here, and how many times per turn they are used.\n This application will always assume the first dice roll of the first attack is your weapon dice.");
             ImGui::SeparatorText("Attacks");
             ImGui::InputInt("##attacktype", &attackCount);
             if(attackCount < 0)
@@ -314,6 +395,15 @@ void createOptionsView()
                 if ((int)(Attacks.at(i).damageBonus.size()) < Attacks.at(i).diceTypes)
                     Attacks.at(i).damageBonus.resize(Attacks.at(i).diceTypes);
 
+                if ((int)(Attacks.at(i).piercerApplicable.size()) < Attacks.at(i).diceTypes)
+                    Attacks.at(i).piercerApplicable.resize(Attacks.at(i).diceTypes);
+
+                if ((int)(Attacks.at(i).isWeaponAttack.size()) < Attacks.at(i).diceTypes)
+                    Attacks.at(i).isWeaponAttack.resize(Attacks.at(i).diceTypes);
+
+                if ((int)(Attacks.at(i).gwfApplicable.size()) < Attacks.at(i).diceTypes)
+                    Attacks.at(i).gwfApplicable.resize(Attacks.at(i).diceTypes);
+
                 for(int j = 0; j < Attacks.at(i).diceTypes; j++) {
                     ImGui::PushID(j);
                     ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0, 0, 255)); // Red text
@@ -329,6 +419,31 @@ void createOptionsView()
 
                     ImGui::Text("Dice Faces");
                     ImGui::InputInt("##subcount", &Attacks.at(i).DamageDices[j].second);
+
+                    if(brutalCriticals > 0 || savageAttacker || savageAttacks || piercer || greatWeaponFighting) {
+                        ImGui::Text("Weapon Damage");
+                        ImGui::SameLine();
+                        bool intermediate0 = Attacks.at(i).isWeaponAttack.at(j);
+                        if(ImGui::Checkbox("##weapAtt", &intermediate0)) {
+                            Attacks.at(i).isWeaponAttack.at(j) = intermediate0;
+                        }
+                    }
+                    if(greatWeaponFighting) {
+                        ImGui::Text("Great Weapon Fighting");
+                        ImGui::SameLine();
+                        bool intermediate2 = Attacks.at(i).gwfApplicable.at(j);
+                        if(ImGui::Checkbox("##gwf", &intermediate2)) {
+                            Attacks.at(i).gwfApplicable.at(j) = intermediate2;
+                        }
+                    }
+                    if(piercer) {
+                        ImGui::Text("Piercer");
+                        ImGui::SameLine();
+                        bool intermediate3 = Attacks.at(i).piercerApplicable.at(j);
+                        if(ImGui::Checkbox("##pierce", &intermediate3)) {
+                            Attacks.at(i).piercerApplicable.at(j) = intermediate3;
+                        }
+                    }
                     
                     const char* items[] = { "Neutral", "Resistance", "Immunity", "Vulnerability"};
                     
