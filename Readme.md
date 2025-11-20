@@ -20,13 +20,11 @@ This program allows for the following specifications:
 - Guaranteed Criticals on Hits
 - Resistance
 - Bonuses for multiple resistance types
+- Rerolls of Damage with Piercer, Savage Attacker, Great Weapon Fighting
 This program does NOT support:
 - Spellcasters. Martials need something, someone already made a google doc of the spells... (I may revisit this later to add this).
 - Advanced Homebrewing support (Unfortunately, I cannot plan for each 6 rolled to double damage or anything).
 - Dragon's Wrath Nat 20 Explosion type effects. Multiple targets gets tricky. Unless I make this way more in depth, this is unrealistic.
-
-### Next Steps
-- Rerolls of Damage
 
 ## Download
 Just download the zip file or clone the repo!
