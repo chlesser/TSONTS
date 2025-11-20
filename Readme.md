@@ -25,6 +25,8 @@ This program does NOT support:
 ## Next Steps
 - Resistance
 - Guaranteed Criticals on Hits
+- Flat Damage
+- Reroll Threshhold
 
 ## How to download
 Just download the zip file or clone the repo!
