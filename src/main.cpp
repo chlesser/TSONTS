@@ -40,6 +40,7 @@ int damageBump = 10;
 
 bool crit19;
 bool crit18;
+bool critALL;
 
 bool reroll1;
 int brutalCriticals;
@@ -148,6 +149,14 @@ void runSimulation()
                         int attackDamage = 0;
 
                         //crit check first!
+                        if(critALL) //critrange becomes AC
+                        {
+                            critrange = ac;
+                            //but to account for the code below, we also have to add the bonus to hit
+                            dieRoll += currentAttack.hitBonus;
+                            if(column % 2 == 1)
+                                dieRoll -= hitDrop;
+                        }
                         if(dieRoll >= critrange) {
                             //UPDATE THIS WITH THE CRIT CODE
                             for(int dmgDiceIndex = 0; dmgDiceIndex < currentAttack.diceTypes; dmgDiceIndex++) {
@@ -262,6 +271,7 @@ void createOptionsView()
             ImGui::SeparatorText("Critical Range");
             ImGui::Checkbox("Crit on 19", &crit19);
             ImGui::Checkbox("Crit on 18", &crit18);
+            ImGui::Checkbox("Crit on all hits", &critALL);
 
             ImGui::SeparatorText("Abilities");
             ImGui::Checkbox("Reroll 1s", &reroll1);
