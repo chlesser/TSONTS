@@ -114,7 +114,6 @@ void runSimulation()
     std::uniform_int_distribution<> distrib(1, 20); //this is our d20 roll
 
     int critrange = 20 - (int)crit19 - (int)crit18;
-    cout << critrange << endl;
     for(int ac = 8; ac <= 30; ac++) {
         for(int column = 0; column < 6; column++) {
             int agg = 0;
