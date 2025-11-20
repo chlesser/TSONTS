@@ -4,10 +4,10 @@ Welcome! This is my D&D optimizer I worked on for an afternoon. When it comes to
 ## Function
 This program takes user specifications and runs dice roll trials to achieve an average damage on a number of armor classes. It rolls 6 sets of dice, 2 with advantage, 2 with disadvantage, and one standard. Each of these sets has one rolled as a gamble and one rolled normally.
 
-## Programming Specification
+### Programming Specification
 This program was created on a windows machine with visual studio code. It uses OpenGL, GLFW, glad, and DearImGui.
 
-## User Specifications
+### User Specifications
 This program allows for the following specifications:
 - Crit Ranges from 18-20
 - Brutal Critical
@@ -25,8 +25,13 @@ This program does NOT support:
 - Advanced Homebrewing support (Unfortunately, I cannot plan for each 6 rolled to double damage or anything).
 - Dragon's Wrath Nat 20 Explosion type effects. Multiple targets gets tricky. Unless I make this way more in depth, this is unrealistic.
 
-## Next Steps
+### Next Steps
 - Rerolls of Damage
 
-## How to download
+## Download
 Just download the zip file or clone the repo!
+
+<img width="2124" height="1081" alt="image" src="https://github.com/user-attachments/assets/36409879-7eea-4078-bfea-71bcb9d9fec1" />
+<img width="2123" height="1086" alt="Page2" src="https://github.com/user-attachments/assets/2256513a-b134-43d2-a78a-606f2a5378fc" />
+<img width="2124" height="1079" alt="Page3" src="https://github.com/user-attachments/assets/13ee35e2-febe-4359-b33a-eda461ff3777" />
+<img width="2124" height="1081" alt="Page4" src="https://github.com/user-attachments/assets/1ab23587-b762-4346-a11c-3c1769ab9ea6" />
