@@ -283,7 +283,7 @@ void createOptionsView()
             ImGui::SeparatorText("Bump those numbers up");
             ImGui::Text("Declare attacks here, and how many times per turn they are used.");
             ImGui::SeparatorText("Attacks");
-            ImGui::InputInt("How Many Types of Attacks", &attackCount);
+            ImGui::InputInt("##attacktype", &attackCount);
             if(attackCount < 0)
                 attackCount = 0;
             
@@ -336,6 +336,7 @@ void createOptionsView()
                     int current = static_cast<int>(Attacks.at(i).damageResistance[j]);
                     if (current < 0 || current >= IM_ARRAYSIZE(items)) current = 0;
 
+                    ImGui::Text("Resistance");
                     static ImGuiComboFlags flags = 0;
                     const char* combo_preview_value = items[current];
                     if (ImGui::BeginCombo("##res", combo_preview_value, flags))
@@ -368,7 +369,7 @@ void createOptionsView()
             ImGui::SeparatorText("One shot, one kill");
             ImGui::Text("Once off damage added to only one attack, like sneak attack or hunters mark");
             ImGui::SeparatorText("Weapon Dice");
-            ImGui::InputInt("How Many Types of Dice", &bonusTypes);
+            ImGui::InputInt("##DiceTypes", &bonusTypes);
             if(bonusTypes < 0)
                 bonusTypes = 0;
             
@@ -396,6 +397,7 @@ void createOptionsView()
                 ImGui::Text("Dice Amount");
                 ImGui::InputInt("##count", &bonusCount[i]);
 
+                ImGui::Text("Resistance");
                 const char* items[] = { "Neutral", "Resistance", "Immunity", "Vulnerability"};
                     static int item_selected_idx = 0; // Here we store our selection data as an index.
 
@@ -515,6 +517,10 @@ int main() {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     ImGui::StyleColorsDark();
+
+    ImGui::GetStyle().ScaleAllSizes(1.5f);   // scales widgets
+    ImGui::GetIO().FontGlobalScale = 1.5f;   // scales text
+
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 450");
 
