@@ -21,16 +21,16 @@ struct attack {
     vector<pair<int, int>>  DamageDices; //first number, then faces
     vector<resistance>      damageResistance;
     int                     diceTypes;
-    int                     damageBonus;
+    vector<int>             damageBonus;
     int                     hitBonus;
     int                     numberPerTurn;
 
     attack() {
-        damageBonus = 0;
         hitBonus = 0;
         numberPerTurn = 1;
         diceTypes = 1;
         DamageDices.push_back(pair(1, 6));
+        damageBonus.push_back(0);
         damageResistance.push_back(NEUTRAL);
     }
 };
@@ -47,9 +47,10 @@ int brutalCriticals;
 vector<attack> Attacks;
 int attackCount;
 
-int bonusTypes;
-vector<int> bonusCount;
-vector<int> bonusSize;
+int                 bonusTypes;
+vector<int>         bonusCount;
+vector<int>         bonusSize;
+vector<resistance>  bonusResistances;
 
 int trials = 10000;
 
@@ -63,9 +64,50 @@ bool updateTable;
 float table[23][6];
 string conclusions[23];
 
+int resistanceMod(int input, resistance res) {
+    switch (res)
+    {
+        case RESISTANT:
+            // Half damage, round down
+            return input / 2;
+        case IMMUNE:
+            // No damage
+            return 0;
+        case VULNERABLE:
+            // Double damage
+            return input * 2;
+        case NEUTRAL:
+        default:
+            return input;
+    }
+}
+int damageRoll(mt19937 &rd, int dieFaces, int diceCount, resistance res, int damageBonus, bool isCrit = false, bool gamblingAttack = false, bool includeExtraCritical = false)
+{
+    int sum = 0;
+
+    //hit loop
+    for(int i = 0; i < diceCount; i++) {
+        std::uniform_int_distribution<> tempDistr(1, dieFaces);
+        sum += tempDistr(rd);
+    }
+    if(isCrit) { //crit loop
+        int totalDice = includeExtraCritical ? diceCount + brutalCriticals : diceCount;
+        for(int i = 0; i < totalDice; i++) {
+            std::uniform_int_distribution<> tempDistr(1, dieFaces);
+            sum += tempDistr(rd);
+        }
+    }
+    sum += damageBonus;
+    if(gamblingAttack)
+        sum += damageBump;
+    
+    sum = resistanceMod(sum, res);
+
+    return sum;
+}
+
 void runSimulation()
 {
-    float tito[4] = { 1.0f, 0.5f, 0.0f, 2.0f };
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> distrib(1, 20); //this is our d20 roll
@@ -81,7 +123,8 @@ void runSimulation()
                 bool critFirst = false; 
                 //let's get hits
                 for(int atkCtr = 0; atkCtr < Attacks.size(); atkCtr++) {
-                    for(int attack = 0; attack < Attacks.at(atkCtr).numberPerTurn; attack++) {
+                    attack &currentAttack = Attacks.at(atkCtr);
+                    for(int attack = 0; attack < currentAttack.numberPerTurn; attack++) {
                         int dieRoll = distrib(gen);
                         //here's where things get messy based on column...
                         if(column >= 4) { //disadvantage
@@ -94,63 +137,65 @@ void runSimulation()
                             if(randomNumber2 > dieRoll)
                                 dieRoll = randomNumber2;
                         }
-                        //if we're a halfling
-                        if(reroll1 && dieRoll == 1)
-                            dieRoll = distrib(gen);
+                        //if nat 1
+                        if(dieRoll == 1) {
+                            if(reroll1)
+                                dieRoll = distrib(gen);
+                            else
+                                continue;
+                        }
                         
                         int attackDamage = 0;
 
                         //crit check first!
                         if(dieRoll >= critrange) {
                             //UPDATE THIS WITH THE CRIT CODE
-                            for(int dmgDiceIndex = 0; dmgDiceIndex < Attacks.at(atkCtr).diceTypes; dmgDiceIndex++) {
-                                for(int dmgDiceCount = 0; dmgDiceCount < Attacks.at(atkCtr).DamageDices.at(dmgDiceIndex).first; dmgDiceCount++) {
-                                    std::uniform_int_distribution<> tempDistr(1, Attacks.at(atkCtr).DamageDices.at(dmgDiceIndex).second);
-                                    attackDamage += tempDistr(gen);
-                                }
-                                if(brutalCriticalLeft) {
-                                    for(int dmgDiceCount = 0; dmgDiceCount < brutalCriticals; dmgDiceCount++) {
-                                        std::uniform_int_distribution<> tempDistr(1, Attacks.at(atkCtr).DamageDices.at(dmgDiceIndex).second);
-                                        attackDamage += tempDistr(gen);
-                                    }
-                                    brutalCriticalLeft = false;
-                                }
+                            for(int dmgDiceIndex = 0; dmgDiceIndex < currentAttack.diceTypes; dmgDiceIndex++) {
+                                attackDamage += damageRoll( gen,
+                                                            currentAttack.DamageDices.at(dmgDiceIndex).second,
+                                                            currentAttack.DamageDices.at(dmgDiceIndex).first,
+                                                            currentAttack.damageResistance.at(dmgDiceIndex),
+                                                            currentAttack.damageBonus.at(dmgDiceIndex),
+                                                            true,
+                                                            (column % 2 == 1 && dmgDiceIndex == 0),
+                                                            brutalCriticalLeft);
+                                brutalCriticalLeft = false;
                             }
-                            attackDamage += Attacks.at(atkCtr).damageBonus;
-                            //and if we're gambling
-                            if(column % 2 == 1)
-                                attackDamage += damageBump;
                             if(!hit)
                                 critFirst = true;
                             hit = true;
                         } else {
                             //we got our die roll. add our hit bonus
-                            dieRoll += Attacks.at(atkCtr).hitBonus;
+                            dieRoll += currentAttack.hitBonus;
                             if(column % 2 == 1)
                                 dieRoll -= hitDrop;
                             
                             if(dieRoll >= ac) {
                                 hit = true;
-                                for(int dmgDiceIndex = 0; dmgDiceIndex < Attacks.at(atkCtr).diceTypes; dmgDiceIndex++) {
-                                    for(int dmgDiceCount = 0; dmgDiceCount < Attacks.at(atkCtr).DamageDices.at(dmgDiceIndex).first; dmgDiceCount++) {
-                                        std::uniform_int_distribution<> tempDistr(1, Attacks.at(atkCtr).DamageDices.at(dmgDiceIndex).second);
-                                        attackDamage += tempDistr(gen);
-                                    }
+                                for(int dmgDiceIndex = 0; dmgDiceIndex < currentAttack.diceTypes; dmgDiceIndex++) {
+                                    attackDamage += damageRoll( gen,
+                                                            currentAttack.DamageDices.at(dmgDiceIndex).second,
+                                                            currentAttack.DamageDices.at(dmgDiceIndex).first,
+                                                            currentAttack.damageResistance.at(dmgDiceIndex),
+                                                            currentAttack.damageBonus.at(dmgDiceIndex),
+                                                            false,
+                                                            (column % 2 == 1 && dmgDiceIndex == 0),
+                                                            brutalCriticalLeft);
                                 }
-                                attackDamage += Attacks.at(atkCtr).damageBonus;
-                                if(column % 2 == 1)
-                                    attackDamage += damageBump;
                             }
                         }
                         agg += attackDamage;
                     }
                 }
                 //thought I was free. Onto bonus damage.
+                int bonusDamage = 0;
                 if(hit) {
                     for(int j = 0; j < bonusTypes; j++) {
                         for(int die = 0; die < bonusCount.at(j); die++) {
                             std::uniform_int_distribution<> tempDistr(1, bonusSize.at(j));
-                            agg += tempDistr(gen);
+                            int temp = tempDistr(gen);
+                            temp = resistanceMod(temp, bonusResistances.at(j));
+                            bonusDamage += temp;
                         }
                     }
                 }
@@ -158,10 +203,13 @@ void runSimulation()
                     for(int j = 0; j < bonusTypes; j++) {
                         for(int die = 0; die < bonusCount.at(j); die++) {
                             std::uniform_int_distribution<> tempDistr(1, bonusSize.at(j));
-                            agg += tempDistr(gen);
+                            int temp = tempDistr(gen);
+                            temp = resistanceMod(temp, bonusResistances.at(j));
+                            bonusDamage += temp;
                         }
                     }
                 }
+                agg += bonusDamage;
             }
             //we're finally out of one round of fighting...
             float avg = static_cast<float>(agg) / static_cast<float>(trials);
@@ -245,9 +293,6 @@ void createOptionsView()
                 ImGui::Text("To Hit Bonus");
                 ImGui::InputInt("##hit", &(Attacks.at(i).hitBonus));
 
-                ImGui::Text("Damage Bonus");
-                ImGui::InputInt("##dmg", &(Attacks.at(i).damageBonus));
-
                 ImGui::Text("Dice Types");
                 ImGui::InputInt("##type", &(Attacks.at(i).diceTypes));
 
@@ -256,6 +301,9 @@ void createOptionsView()
                 
                 if ((int)(Attacks.at(i).damageResistance.size()) < Attacks.at(i).diceTypes)
                     Attacks.at(i).damageResistance.resize(Attacks.at(i).diceTypes);
+                
+                if ((int)(Attacks.at(i).damageBonus.size()) < Attacks.at(i).diceTypes)
+                    Attacks.at(i).damageBonus.resize(Attacks.at(i).diceTypes);
 
                 for(int j = 0; j < Attacks.at(i).diceTypes; j++) {
                     ImGui::PushID(j);
@@ -264,6 +312,9 @@ void createOptionsView()
                     ImGui::Text(subtitleString.c_str());
                     ImGui::PopStyleColor();
 
+                    ImGui::Text("Damage Bonus");
+                    ImGui::InputInt("##dmg", &(Attacks.at(i).damageBonus[j]));
+
                     ImGui::Text("Number of Dice");
                     ImGui::InputInt("##subsize", &Attacks.at(i).DamageDices[j].first);
 
@@ -271,18 +322,20 @@ void createOptionsView()
                     ImGui::InputInt("##subcount", &Attacks.at(i).DamageDices[j].second);
                     
                     const char* items[] = { "Neutral", "Resistance", "Immunity", "Vulnerability"};
-                    static int item_selected_idx = 0; // Here we store our selection data as an index.
+                    
+                    int current = static_cast<int>(Attacks.at(i).damageResistance[j]);
+                    if (current < 0 || current >= IM_ARRAYSIZE(items)) current = 0;
 
                     static ImGuiComboFlags flags = 0;
-                    const char* combo_preview_value = items[item_selected_idx];
-                    if (ImGui::BeginCombo("Resistance", combo_preview_value, flags))
+                    const char* combo_preview_value = items[current];
+                    if (ImGui::BeginCombo("##res", combo_preview_value, flags))
                     {
                         for (int n = 0; n < IM_ARRAYSIZE(items); n++)
                         {
-                            const bool is_selected = (item_selected_idx == n);
+                            const bool is_selected = (current  == n);
                             if (ImGui::Selectable(items[n], is_selected)) {
-                                item_selected_idx = n;
-                                Attacks.at(i).damageResistance[j] = resistance(n);
+                                current = n;
+                                Attacks.at(i).damageResistance[j] = static_cast<resistance>(n);
                             }
                                 
 
@@ -314,6 +367,9 @@ void createOptionsView()
 
             if ((int)bonusCount.size() < bonusTypes)
                 bonusCount.resize(bonusTypes, 0);
+
+            if ((int)bonusResistances.size() < bonusTypes)
+                bonusResistances.resize(bonusTypes);
             
             
             for(int i = 0; i < bonusTypes; i++) {
@@ -329,6 +385,29 @@ void createOptionsView()
 
                 ImGui::Text("Dice Amount");
                 ImGui::InputInt("##count", &bonusCount[i]);
+
+                const char* items[] = { "Neutral", "Resistance", "Immunity", "Vulnerability"};
+                    static int item_selected_idx = 0; // Here we store our selection data as an index.
+
+                    static ImGuiComboFlags flags = 0;
+                    const char* combo_preview_value = items[item_selected_idx];
+                    if (ImGui::BeginCombo("##bonusres", combo_preview_value, flags))
+                    {
+                        for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+                        {
+                            const bool is_selected = (item_selected_idx == n);
+                            if (ImGui::Selectable(items[n], is_selected)) {
+                                item_selected_idx = n;
+                                bonusResistances[i] = resistance(n);
+                            }
+                                
+
+                            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                            if (is_selected)
+                                ImGui::SetItemDefaultFocus();
+                        }
+                        ImGui::EndCombo();
+                    }
 
                 ImGui::PopID();
             }

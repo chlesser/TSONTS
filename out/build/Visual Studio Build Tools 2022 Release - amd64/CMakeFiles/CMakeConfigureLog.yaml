@@ -24,7 +24,7 @@ events:
       The output was:
       0
       MSBuild version 17.14.23+b0019275e for .NET Framework
-      Build started 11/18/2025 7:21:41 PM.
+      Build started 11/19/2025 10:37:55 PM.
       
       Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\3.31.6-msvc6\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -53,7 +53,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:00.50
+      Time Elapsed 00:00:00.54
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -79,7 +79,7 @@ events:
       The output was:
       0
       MSBuild version 17.14.23+b0019275e for .NET Framework
-      Build started 11/18/2025 7:21:42 PM.
+      Build started 11/19/2025 10:37:57 PM.
       
       Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\3.31.6-msvc6\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -127,50 +127,50 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-x4x1va"
-      binary: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-x4x1va"
+      source: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-3gv5tp"
+      binary: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-3gv5tp"
     cmakeVariables:
-      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
-      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
     buildResult:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-x4x1va'
+        Change Dir: 'C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-3gv5tp'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_293ba.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_35e2a.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.23+b0019275e for .NET Framework
-        Build started 11/18/2025 7:21:44 PM.
+        Build started 11/19/2025 10:37:58 PM.
         
-        Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-x4x1va\\cmTC_293ba.vcxproj" on node 1 (default targets).
+        Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-3gv5tp\\cmTC_35e2a.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_293ba.dir\\Debug\\".
+          Creating directory "cmTC_35e2a.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-x4x1va\\Debug\\".
-          Creating directory "cmTC_293ba.dir\\Debug\\cmTC_293ba.tlog\\".
+          Creating directory "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-3gv5tp\\Debug\\".
+          Creating directory "cmTC_35e2a.dir\\Debug\\cmTC_35e2a.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_293ba.dir\\Debug\\cmTC_293ba.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_293ba.dir\\Debug\\cmTC_293ba.tlog\\unsuccessfulbuild".
+          Creating "cmTC_35e2a.dir\\Debug\\cmTC_35e2a.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_35e2a.dir\\Debug\\cmTC_35e2a.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_293ba.dir\\Debug\\\\" /Fd"cmTC_293ba.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_35e2a.dir\\Debug\\\\" /Fd"cmTC_35e2a.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35217 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_293ba.dir\\Debug\\\\" /Fd"cmTC_293ba.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_35e2a.dir\\Debug\\\\" /Fd"cmTC_35e2a.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-x4x1va\\Debug\\cmTC_293ba.exe" /INCREMENTAL /ILK:"cmTC_293ba.dir\\Debug\\cmTC_293ba.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-x4x1va/Debug/cmTC_293ba.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-x4x1va/Debug/cmTC_293ba.lib" /MACHINE:X64  /machine:x64 cmTC_293ba.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_293ba.vcxproj -> C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-x4x1va\\Debug\\cmTC_293ba.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-3gv5tp\\Debug\\cmTC_35e2a.exe" /INCREMENTAL /ILK:"cmTC_35e2a.dir\\Debug\\cmTC_35e2a.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-3gv5tp/Debug/cmTC_35e2a.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-3gv5tp/Debug/cmTC_35e2a.lib" /MACHINE:X64  /machine:x64 cmTC_35e2a.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_35e2a.vcxproj -> C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-3gv5tp\\Debug\\cmTC_35e2a.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_293ba.dir\\Debug\\cmTC_293ba.tlog\\unsuccessfulbuild".
-          Touching "cmTC_293ba.dir\\Debug\\cmTC_293ba.tlog\\cmTC_293ba.lastbuildstate".
-        Done Building Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-x4x1va\\cmTC_293ba.vcxproj" (default targets).
+          Deleting file "cmTC_35e2a.dir\\Debug\\cmTC_35e2a.tlog\\unsuccessfulbuild".
+          Touching "cmTC_35e2a.dir\\Debug\\cmTC_35e2a.tlog\\cmTC_35e2a.lastbuildstate".
+        Done Building Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-3gv5tp\\cmTC_35e2a.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.42
+        Time Elapsed 00:00:00.47
         
       exitCode: 0
   -
@@ -210,51 +210,51 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-z3adn5"
-      binary: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-z3adn5"
+      source: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-rgi8il"
+      binary: "C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-rgi8il"
     cmakeVariables:
-      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
-      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
       CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
     buildResult:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-z3adn5'
+        Change Dir: 'C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-rgi8il'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_f8f8c.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_69e81.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.23+b0019275e for .NET Framework
-        Build started 11/18/2025 7:21:45 PM.
+        Build started 11/19/2025 10:37:59 PM.
         
-        Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-z3adn5\\cmTC_f8f8c.vcxproj" on node 1 (default targets).
+        Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-rgi8il\\cmTC_69e81.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_f8f8c.dir\\Debug\\".
+          Creating directory "cmTC_69e81.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-z3adn5\\Debug\\".
-          Creating directory "cmTC_f8f8c.dir\\Debug\\cmTC_f8f8c.tlog\\".
+          Creating directory "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-rgi8il\\Debug\\".
+          Creating directory "cmTC_69e81.dir\\Debug\\cmTC_69e81.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_f8f8c.dir\\Debug\\cmTC_f8f8c.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_f8f8c.dir\\Debug\\cmTC_f8f8c.tlog\\unsuccessfulbuild".
+          Creating "cmTC_69e81.dir\\Debug\\cmTC_69e81.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_69e81.dir\\Debug\\cmTC_69e81.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_f8f8c.dir\\Debug\\\\" /Fd"cmTC_f8f8c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_69e81.dir\\Debug\\\\" /Fd"cmTC_69e81.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35217 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_f8f8c.dir\\Debug\\\\" /Fd"cmTC_f8f8c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_69e81.dir\\Debug\\\\" /Fd"cmTC_69e81.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.31\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-z3adn5\\Debug\\cmTC_f8f8c.exe" /INCREMENTAL /ILK:"cmTC_f8f8c.dir\\Debug\\cmTC_f8f8c.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-z3adn5/Debug/cmTC_f8f8c.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-z3adn5/Debug/cmTC_f8f8c.lib" /MACHINE:X64  /machine:x64 cmTC_f8f8c.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_f8f8c.vcxproj -> C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-z3adn5\\Debug\\cmTC_f8f8c.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-rgi8il\\Debug\\cmTC_69e81.exe" /INCREMENTAL /ILK:"cmTC_69e81.dir\\Debug\\cmTC_69e81.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-rgi8il/Debug/cmTC_69e81.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/hydri/OneDrive/Documents/GitHub/TSONTS/out/build/Visual Studio Build Tools 2022 Release - amd64/CMakeFiles/CMakeScratch/TryCompile-rgi8il/Debug/cmTC_69e81.lib" /MACHINE:X64  /machine:x64 cmTC_69e81.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_69e81.vcxproj -> C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-rgi8il\\Debug\\cmTC_69e81.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_f8f8c.dir\\Debug\\cmTC_f8f8c.tlog\\unsuccessfulbuild".
-          Touching "cmTC_f8f8c.dir\\Debug\\cmTC_f8f8c.tlog\\cmTC_f8f8c.lastbuildstate".
-        Done Building Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-z3adn5\\cmTC_f8f8c.vcxproj" (default targets).
+          Deleting file "cmTC_69e81.dir\\Debug\\cmTC_69e81.tlog\\unsuccessfulbuild".
+          Touching "cmTC_69e81.dir\\Debug\\cmTC_69e81.tlog\\cmTC_69e81.lastbuildstate".
+        Done Building Project "C:\\Users\\hydri\\OneDrive\\Documents\\GitHub\\TSONTS\\out\\build\\Visual Studio Build Tools 2022 Release - amd64\\CMakeFiles\\CMakeScratch\\TryCompile-rgi8il\\cmTC_69e81.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.42
+        Time Elapsed 00:00:00.46
         
       exitCode: 0
   -
