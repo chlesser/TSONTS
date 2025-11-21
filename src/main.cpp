@@ -182,7 +182,7 @@ void runSimulation()
                 bool hit = false; //we store these for our automatic attacks
                 bool critFirst = false; 
                 //let's get hits
-                for(int atkCtr = 0; atkCtr < Attacks.size(); atkCtr++) {
+                for(int atkCtr = 0; atkCtr < attackCount; atkCtr++) {
                     attack &currentAttack = Attacks.at(atkCtr);
                     for(int attack = 0; attack < currentAttack.numberPerTurn; attack++) {
                         int dieRoll = distrib(gen);
