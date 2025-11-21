@@ -347,7 +347,7 @@ void createOptionsView()
             ImGui::Checkbox("Crit on all hits", &critALL);
 
             ImGui::SeparatorText("Racial Abilities");
-            ImGui::Checkbox("Halfling Brave", &reroll1);
+            ImGui::Checkbox("Halfling Lucky", &reroll1);
             ImGui::Checkbox("Half Orc Savage Attacks", &savageAttacks);
 
             ImGui::SeparatorText("Class/Feat Abilities");
